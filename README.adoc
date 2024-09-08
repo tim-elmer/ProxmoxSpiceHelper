@@ -1,0 +1,37 @@
+:icons: font
+= Proxmox SPICE Helper
+
+Based on https://github.com/toby11/windows-promox-spice-viewer[toby11's windows-proxmox-spice-viewer icon:github[]^].
+
+A simple command line app to open a SPICE console for a Proxmox-hosted VM without using the web interface.
+
+== Requirements
+* API key with effective role `PVEVMUser` for target VM(s).
+* https://virt-manager.org/download.html[virt-viewer^].
+
+== Configuration
+Configuration is done via JSON file:
+
+[[host, `Host`]]
+`Host`:: The domain name of the PVE server.
+`Node`:: The name of the PVE node to connect to. +
+NOTE: If only one node is present, the node name will be inferred from the host name of the <<host>> value.
+`Port`:: The port to connect to the PVE server with. Defaults to `8006`.
+`TokenId`:: The ID of the PVE API token.
+`TokenSecret`:: The secret of the PVE API token.
+`VmId`:: The numerical ID of the VM to connect to.
+
+.{empty}
+====
+[,json]
+----
+{
+  "Host": "pve.local",
+  "TokenId": "root@pam!mytoken",
+  "TokenSecret": "aaaaaaaaa-bbb-cccc-dddd-ef0123456789",
+  "VmId": 394
+}
+----
+
+This configuration file will connect to VM `394` on `pve.local` using the provided token, and assume that said VM resides on node `pve`.
+====
